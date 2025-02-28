@@ -1,0 +1,178 @@
+import math
+import random
+from statistics import median, mode, StatisticsError
+
+# Basic calculator functions
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    if y == 0:
+        return "Error! Division by zero."
+    return x / y
+
+# Advanced calculator functions
+def power(x, y):
+    return x ** y
+
+def square_root(x):
+    if x < 0:
+        return "Error! Square root of negative number."
+    return math.sqrt(x)
+
+def logarithm(x):
+    if x <= 0:
+        return "Error! Logarithm undefined for zero or negative numbers."
+    return math.log(x)
+
+# Random number generator function
+def random_number_generator():
+    print("Random Number Generator:")
+    lower = int(input("Enter the lower range: "))
+    upper = int(input("Enter the upper range: "))
+    quantity = int(input("How many random numbers would you like to generate? "))
+    
+    print(f"\nGenerated {quantity} random numbers between {lower} and {upper}:")
+    for _ in range(quantity):
+        print(random.randint(lower, upper))
+
+# Median, Mode, and Range calculator functions
+def median_mode_range():
+    print("Median, Mode, and Range Calculator:")
+    numbers = list(map(float, input("Enter a list of numbers separated by spaces: ").split()))
+    
+    # Calculate the median
+    med = median(numbers)
+    
+    # Calculate the mode, handling the case where no mode is found
+    try:
+        mod = mode(numbers)
+    except StatisticsError:
+        mod = "No unique mode"
+    
+    # Calculate the range
+    range_val = max(numbers) - min(numbers)
+    
+    # Display the results
+    print(f"Median: {med}")
+    print(f"Mode: {mod}")
+    print(f"Range: {range_val}")
+
+# Slope/Rate of Change Calculator
+def slope_calculator():
+    print("Slope/Rate of Change Calculator:")
+    x1 = float(input("Enter the x-coordinate of the first point (x1): "))
+    y1 = float(input("Enter the y-coordinate of the first point (y1): "))
+    x2 = float(input("Enter the x-coordinate of the second point (x2): "))
+    y2 = float(input("Enter the y-coordinate of the second point (y2): "))
+    
+    # Check for vertical line to avoid division by zero
+    if x2 - x1 == 0:
+        print("Error! The line is vertical, slope is undefined.")
+    else:
+        slope = (y2 - y1) / (x2 - x1)
+        print(f"The slope (rate of change) between the points ({x1}, {y1}) and ({x2}, {y2}) is: {slope}")
+
+# Prime number generator function
+def prime_number_generator():
+    print("Prime Number Generator:")
+    limit = int(input("Enter the upper limit to find all prime numbers: "))
+    
+    primes = []
+    for num in range(2, limit + 1):
+        is_prime = True
+        for i in range(2, int(math.sqrt(num)) + 1):
+            if num % i == 0:
+                is_prime = False
+                break
+        if is_prime:
+            primes.append(num)
+    
+    print(f"Prime numbers up to {limit} are:")
+    print(primes)
+
+# Advanced calculator menu
+def advanced_calculator():
+    print("Select operation for Advanced Calculator:")
+    print("1. Power (x^y)")
+    print("2. Square Root (√x)")
+    print("3. Logarithm (log(x))")
+
+    choice = input("Enter choice(1/2/3): ")
+
+    if choice == '1':
+        base = float(input("Enter base number (x): "))
+        exponent = float(input("Enter exponent (y): "))
+        print(f"{base} ^ {exponent} = {power(base, exponent)}")
+
+    elif choice == '2':
+        number = float(input("Enter number: "))
+        print(f"Square root of {number} = {square_root(number)}")
+
+    elif choice == '3':
+        number = float(input("Enter number: "))
+        print(f"Logarithm of {number} = {logarithm(number)}")
+
+    else:
+        print("Invalid input! Please select a valid operation.")
+
+# Basic calculator menu
+def basic_calculator():
+    print("Select operation for Basic Calculator:")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+
+    choice = input("Enter choice(1/2/3/4): ")
+
+    if choice in ['1', '2', '3', '4']:
+        num1 = float(input("Enter first number: "))
+        num2 = float(input("Enter second number: "))
+
+        if choice == '1':
+            print(f"{num1} + {num2} = {add(num1, num2)}")
+        elif choice == '2':
+            print(f"{num1} - {num2} = {subtract(num1, num2)}")
+        elif choice == '3':
+            print(f"{num1} * {num2} = {multiply(num1, num2)}")
+        elif choice == '4':
+            print(f"{num1} / {num2} = {divide(num1, num2)}")
+    else:
+        print("Invalid input! Please select a valid operation.")
+
+# Main menu to choose the calculator or random number generator
+def main():
+    print("Select an option:")
+    print("1. Basic Calculator")
+    print("2. Advanced Calculator")
+    print("3. Random Number Generator")
+    print("4. Median, Mode, and Range Calculator")
+    print("5. Slope/Rate of Change Calculator")  # Updated option
+    print("6. Prime Number Generator")
+
+    choice = input("Enter choice(1/2/3/4/5/6): ")
+
+    if choice == '1':
+        basic_calculator()
+    elif choice == '2':
+        advanced_calculator()
+    elif choice == '3':
+        random_number_generator()
+    elif choice == '4':
+        median_mode_range()
+    elif choice == '5':
+        slope_calculator()  # Call the new slope function
+    elif choice == '6':
+        prime_number_generator()
+    else:
+        print("Invalid choice! Please select a valid option.")
+
+if __name__ == "__main__":
+    main()
